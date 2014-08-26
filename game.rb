@@ -5,12 +5,12 @@ class Window < Gosu::Window
   def initialize
     super(1024, 768, false)
     @carpet = Carpet.new(self)
-    @backgrounds = 25.times.collect { Gosu::Image.new(self, "media/background.jpeg") }
+    @backgrounds = 25.times.collect { Gosu::Image.new(self, "media/background.jpeg", true) }
   end
 
   def draw
     @carpet.draw
-    @backgrounds.each_with_index { | bg, index | bg.draw((index % 5) * 238, (index / 5) * 158, 0) }
+    @backgrounds.each_with_index { | bg, index | bg.draw((index % 5) * 240, (index / 5) * 160, 0) }
   end
 
   def update
