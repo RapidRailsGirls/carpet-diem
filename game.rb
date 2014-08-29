@@ -32,11 +32,9 @@ class Window < Gosu::Window
     @carpet.draw
     @backgrounds.each_with_index do | bg, index |
       bg.y = (index / TILE_COLS) * bg.height + @yplus
-      bg.draw((index % TILE_COLS) * bg.width, bg.y, 0)
+      bg.draw((index % TILE_COLS) * bg.width, bg.y, 1)
     end
-    @lamps.each do |lamp| 
-      lamp.draw
-    end  
+    @lamps.each {|lamp| lamp.draw}
   end
 
   def update
@@ -50,10 +48,17 @@ class Window < Gosu::Window
       @carpet.flip_right
     end
     scroll_background
-    if @counter % 180 == 0
-      @lamps.push Lamp.new(self)
+    if @counter % 60 == 0
+      @lamps.push LampWithGenie.new(self)
     end
     scroll_lamps
+    if @lamps.any? do |lamp|
+      if @carpet.collides_with?(lamp)
+        lamp.z_genie = 3
+      end
+    end
+  end
+
   end
 
   def scroll_background
@@ -71,11 +76,12 @@ class Window < Gosu::Window
     end
   end
 
+
 end
 
 class Carpet
 
-  attr_accessor :x
+  attr_accessor :x, :y
 
   def initialize(window)
     @image = @image_right = Gosu::Image.new(window, "media/carpet.png")
@@ -83,9 +89,9 @@ class Carpet
     @x = WINDOW_WIDTH/2 - @image.width/2
     @y = WINDOW_HEIGHT/1.4 - @image.height/2
   end
-  
+
   def draw
-    @image.draw(@x, @y, 2)
+    @image.draw(@x, @y, 4)
   end
 
   def flip_left
@@ -96,21 +102,40 @@ class Carpet
     @image = @image_right
   end
 
+  def collides_with?(lamp)
+    Gosu::distance(@x/2, @y, lamp.x/2, lamp.y) <= 100
+  end
+
 end
 
-class Lamp
-  attr_accessor :y
+class LampWithGenie
+  attr_accessor :y, :x, :z_genie
 
   def initialize(window)
-    @lamp = Gosu::Image.new(window, "media/lamp.png")
-    @x = rand(WINDOW_WIDTH - @lamp.width) 
+    @random_lamp = rand(2)
+    if @random_lamp.odd?
+      @lamp = Gosu::Image.new(window, "media/lamp.png")
+      @genie = Gosu::Image.new(window, "media/good_genie.png")
+    else
+      @lamp = Gosu::Image.new(window, "media/lamp_flipped.png")
+      @genie = Gosu::Image.new(window, "media/good_genie_flipped.png")
+    end
+    @x = rand(@genie.width/2..(WINDOW_WIDTH - @genie.width))
     @y = -@lamp.height
+    @z_genie = 0
   end
 
   def draw
-    @lamp.draw(@x, @y, 1) 
+    @lamp.draw(@x, @y, 2)
+    if @random_lamp.odd?
+      @genie.draw(@x - 150, @y - 200, @z_genie)
+    else
+      @genie.draw(@x + 140, @y - 200, @z_genie)
+    end
   end
 end
+
+
 
 window = Window.new
 window.show
