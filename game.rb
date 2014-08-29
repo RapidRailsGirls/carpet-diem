@@ -7,6 +7,8 @@ class Window < Gosu::Window
   TILE_COLS = 4
   INITIAL_Y = -300
   VELOCITY = 3
+  CARPET_SPEED = 5
+
 
   module YAccessible
     attr_writer :y
@@ -22,6 +24,8 @@ class Window < Gosu::Window
       Gosu::Image.new(self, "media/background.jpeg", true).extend(YAccessible)
     end
     @yplus = INITIAL_Y
+    @counter = 0
+    @lamps = []
   end
 
   def draw
@@ -30,18 +34,26 @@ class Window < Gosu::Window
       bg.y = (index / TILE_COLS) * bg.height + @yplus
       bg.draw((index % TILE_COLS) * bg.width, bg.y, 0)
     end
+    @lamps.each do |lamp| 
+      lamp.draw
+    end  
   end
 
   def update
+    @counter += 1
     if button_down? Gosu::KbLeft
-      @carpet.x = [@carpet.x - 3, -35].max
+      @carpet.x = [@carpet.x - CARPET_SPEED, -35].max
       @carpet.flip_left
     end
     if button_down? Gosu::KbRight
-      @carpet.x = [@carpet.x + 3, 930].min
+      @carpet.x = [@carpet.x + CARPET_SPEED, 930].min
       @carpet.flip_right
     end
     scroll_background
+    if @counter % 180 == 0
+      @lamps.push Lamp.new(self)
+    end
+    scroll_lamps
   end
 
   def scroll_background
@@ -49,9 +61,16 @@ class Window < Gosu::Window
     if bg.y >= ((NUM_TILES / TILE_COLS) - 1) * bg.height - VELOCITY
       @yplus = INITIAL_Y
     else
-      @yplus += VELOCITY
+      @yplus += VELOCITY - 1
     end
   end
+
+  def scroll_lamps
+    @lamps.each do |lamp|
+      lamp.y += VELOCITY
+    end
+  end
+
 end
 
 class Carpet
@@ -66,7 +85,7 @@ class Carpet
   end
   
   def draw
-    @image.draw(@x, @y, 1)
+    @image.draw(@x, @y, 2)
   end
 
   def flip_left
@@ -77,6 +96,20 @@ class Carpet
     @image = @image_right
   end
 
+end
+
+class Lamp
+  attr_accessor :y
+
+  def initialize(window)
+    @lamp = Gosu::Image.new(window, "media/lamp.png")
+    @x = rand(WINDOW_WIDTH - @lamp.width) 
+    @y = -@lamp.height
+  end
+
+  def draw
+    @lamp.draw(@x, @y, 1) 
+  end
 end
 
 window = Window.new
