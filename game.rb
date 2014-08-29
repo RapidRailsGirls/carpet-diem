@@ -54,7 +54,7 @@ class Window < Gosu::Window
     scroll_lamps
     if @lamps.any? do |lamp|
       if @carpet.collides_with?(lamp)
-        lamp.z_genie = 3
+        lamp.rubbed = true
       end
     end
   end
@@ -109,7 +109,7 @@ class Carpet
 end
 
 class LampWithGenie
-  attr_accessor :y, :x, :z_genie
+  attr_accessor :y, :x, :rubbed
 
   def initialize(window)
     @random_lamp = rand(2)
@@ -120,17 +120,19 @@ class LampWithGenie
       @lamp = Gosu::Image.new(window, "media/lamp_flipped.png")
       @genie = Gosu::Image.new(window, "media/good_genie_flipped.png")
     end
+    @rubbed = false
     @x = rand(@genie.width/2..(WINDOW_WIDTH - @genie.width))
     @y = -@lamp.height
-    @z_genie = 0
   end
 
   def draw
     @lamp.draw(@x, @y, 2)
-    if @random_lamp.odd?
-      @genie.draw(@x - 150, @y - 200, @z_genie)
-    else
-      @genie.draw(@x + 140, @y - 200, @z_genie)
+    if rubbed
+      if @random_lamp.odd?
+        @genie.draw(@x - 150, @y - 200, 3)
+      else
+        @genie.draw(@x + 140, @y - 200, 3)
+      end
     end
   end
 end
