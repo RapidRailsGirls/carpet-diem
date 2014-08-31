@@ -100,7 +100,7 @@ class Carpet
   end
 
   def collides_with?(lamp)
-    Gosu::distance(@x/2, @y, lamp.x/2, lamp.y) <= 100
+    Gosu.distance(@x + @carpet.width/2, @y + @carpet.height/2, lamp.x + lamp.width/2, lamp.y + lamp.height/2) <= lamp.width
   end
 end
 
