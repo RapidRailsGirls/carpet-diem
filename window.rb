@@ -2,7 +2,6 @@ class Window < Gosu::Window
   NUM_TILES = 6
   TILE_COLS = 2
   VELOCITY = 3
-  CARPET_SPEED = 5
 
   module YAccessible
     attr_writer :y
@@ -34,10 +33,10 @@ class Window < Gosu::Window
   def update
     @counter += 1
     if button_down? Gosu::KbLeft
-      @carpet.move_left(CARPET_SPEED)
+      @carpet.move_left
     end
     if button_down? Gosu::KbRight
-      @carpet.move_right(CARPET_SPEED)
+      @carpet.move_right
     end
     scroll_background
     if @counter % 60 == 0

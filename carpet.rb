@@ -1,9 +1,5 @@
-require 'forwardable'
-
 class Carpet
-  extend Forwardable
-  def_delegators :@carpet_image, :height, :width
-  attr_accessor :x, :y
+  CARPET_SPEED = 5
 
   def initialize(window)
     @carpet_image = @carpet_image_right = Gosu::Image.new(window, 'media/carpet.png')
@@ -16,13 +12,13 @@ class Carpet
     @carpet_image.draw(@x, @y, 4)
   end
 
-  def move_left(speed)
-    @x = [@x - speed, 0 - @carpet_image.height / 4].max
+  def move_left
+    @x = [@x - CARPET_SPEED, 0 - @carpet_image.height / 4].max
     @carpet_image = @carpet_image_left
   end
 
-  def move_right(speed)
-    @x = [@x + speed, WINDOW_WIDTH - @carpet_image.height / 2].min
+  def move_right
+    @x = [@x + CARPET_SPEED, WINDOW_WIDTH - @carpet_image.height / 2].min
     @carpet_image = @carpet_image_right
   end
 
