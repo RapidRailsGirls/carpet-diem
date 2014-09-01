@@ -34,12 +34,10 @@ class Window < Gosu::Window
   def update
     @counter += 1
     if button_down? Gosu::KbLeft
-      @carpet.x = [@carpet.x - CARPET_SPEED, 0 - @carpet.height / 4].max
-      @carpet.flip_left
+      @carpet.move_left(CARPET_SPEED)
     end
     if button_down? Gosu::KbRight
-      @carpet.x = [@carpet.x + CARPET_SPEED, WINDOW_WIDTH - @carpet.height / 2].min
-      @carpet.flip_right
+      @carpet.move_right(CARPET_SPEED)
     end
     scroll_background
     if @counter % 60 == 0
