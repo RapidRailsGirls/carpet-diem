@@ -49,6 +49,10 @@ class LampWithGenie
     end
   end
 
+  def scroll(speed)
+    @y += speed
+  end
+
   def draw
     @lamp.draw(@x, @y, 2)
     if rubbed?

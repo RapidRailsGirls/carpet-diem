@@ -61,7 +61,7 @@ class Window < Gosu::Window
 
   def scroll_lamps
     @lamps.each do |lamp|
-      lamp.y += VELOCITY
+      lamp.scroll(VELOCITY)
     end
   end
 end
