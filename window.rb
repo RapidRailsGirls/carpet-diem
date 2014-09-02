@@ -2,6 +2,7 @@ class Window < Gosu::Window
   NUM_TILES = 6
   TILE_COLS = 2
   VELOCITY = 3
+  BLACK = Gosu::Color.argb(0xff000000)
 
   module YAccessible
     attr_writer :y
@@ -16,6 +17,7 @@ class Window < Gosu::Window
     @backgrounds = NUM_TILES.times.collect do
       Gosu::Image.new(self, 'media/background.jpg', true).extend(YAccessible)
     end
+    @font = Gosu::Font.new(self, Gosu::default_font_name, 60)
     @yplus = -@backgrounds.last.height
     @counter = 0
     @lamps = []
@@ -23,6 +25,7 @@ class Window < Gosu::Window
 
   def draw
     @carpet.draw
+    @font.draw("Score:", 10, 10, 5, 1, 1, color = BLACK)
     @backgrounds.each_with_index do | bg, index |
       bg.y = (index / TILE_COLS) * bg.height + @yplus
       bg.draw((index % TILE_COLS) * bg.width, bg.y, 1)
