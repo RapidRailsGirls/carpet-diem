@@ -10,8 +10,14 @@ describe Carpet do
   end
 
   describe '#x' do
-    it 'should be horizontally centered' do
+    it 'should start horizontally centered' do
       expect(subject.x).to eq(4)
+    end
+  end
+
+  describe '#y' do
+    it 'should start in the lower three-fifths of the window' do
+      expect(subject.y).to eq(5)
     end
   end
 

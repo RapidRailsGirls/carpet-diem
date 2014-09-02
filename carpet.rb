@@ -6,9 +6,9 @@ class Carpet
     @carpet_image = @carpet_image_right = Gosu::Image.new(window, carpet_image_file)
     @carpet_image_left = Gosu::Image.new(window, carpet_image_flipped_file)
     @window = window
-    @x = window.width/2 - @carpet_image.width/2
+    @x = window.width/2.0 - @carpet_image.width/2.0
     @x += 1 if window.width.odd? && @carpet_image.width.odd?
-    @y = window.height/1.4 - @carpet_image.height/2
+    @y = window.height/(18/13.0) - @carpet_image.height/2.0
   end
 
   def draw
