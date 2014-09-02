@@ -12,7 +12,7 @@ class Window < Gosu::Window
   end
 
   def initialize
-    super(WINDOW_WIDTH, WINDOW_HEIGHT, false)
+    super(1200, 800, false)
     @carpet = Carpet.new(self)
     @backgrounds = NUM_TILES.times.collect do
       Gosu::Image.new(self, 'media/background.jpg', true).extend(YAccessible)

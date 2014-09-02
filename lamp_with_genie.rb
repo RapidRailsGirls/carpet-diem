@@ -25,7 +25,7 @@ class LampWithGenie
       end
     end
     @rubbed = false
-    @x = rand(@genie_image.width/2..(WINDOW_WIDTH - @genie_image.width))
+    @x = rand(@genie_image.width/2..(window.width - @genie_image.width))
     @y = -@lamp_image.height
   end
 
