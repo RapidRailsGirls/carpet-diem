@@ -1,11 +1,13 @@
 class Carpet
   CARPET_SPEED = 5
+  attr_accessor :x, :y
 
   def initialize(window, carpet_image_file = 'media/carpet.png', carpet_image_flipped_file = 'media/carpet_flipped.png')
     @carpet_image = @carpet_image_right = Gosu::Image.new(window, carpet_image_file)
     @carpet_image_left = Gosu::Image.new(window, carpet_image_flipped_file)
     @window = window
     @x = window.width/2 - @carpet_image.width/2
+    @x += 1 if window.width.odd? && @carpet_image.width.odd?
     @y = window.height/1.4 - @carpet_image.height/2
   end
 
