@@ -1,4 +1,8 @@
+require 'forwardable'
+
 class Carpet
+  extend Forwardable
+  def_delegators :@carpet_image, :width, :height
   CARPET_SPEED = 5
   attr_accessor :x, :y
 
