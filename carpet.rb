@@ -1,10 +1,15 @@
 require 'forwardable'
+require 'texplay'
+require 'chingu'
 
 class Carpet
   extend Forwardable
   def_delegators :@carpet_image, :width, :height
   CARPET_SPEED = 5
   attr_accessor :x, :y
+  attr_reader :carpet_image
+  alias :image :carpet_image
+  undef :carpet_image
 
   def initialize(window, carpet_image_file = 'media/carpet.png', carpet_image_flipped_file = 'media/carpet_flipped.png')
     @carpet_image = @carpet_image_right = Gosu::Image.new(window, carpet_image_file)
@@ -29,7 +34,26 @@ class Carpet
     @carpet_image = @carpet_image_right
   end
 
-  def collides_with?(lamp)
-    Gosu.distance(@x + @carpet_image.width/2, @y + @carpet_image.height/2, lamp.x + lamp.width/2, lamp.y + lamp.height/2) <= lamp.width
+  def collides_with?(object)
+    !opaque_overlapping_pixels(object).empty?
   end
+
+  def pixels(offset_x, offset_y, width, height)
+    height.times.flat_map do |y|
+      width.times.map do |x|
+        [(x + offset_x).to_i, (y + offset_y).to_i]
+      end
+    end
+  end
+
+  def overlapping_pixels(object)
+    pixels(x, y, width, height) & pixels(object.x, object.y, object.width, object.height)
+  end
+
+  def opaque_overlapping_pixels(object)
+    overlapping_pixels(object).select do |x,y|
+      !@carpet_image.transparent_pixel?(x,y) && !object.image.transparent_pixel?(x,y)
+    end
+  end
+
 end

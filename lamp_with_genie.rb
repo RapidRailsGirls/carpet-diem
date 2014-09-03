@@ -4,7 +4,10 @@ class LampWithGenie
   extend Forwardable
   def_delegators :@lamp_image, :height, :width
   attr_accessor :rubbed, :x, :y
-  alias :rubbed? :rubbed
+  attr_reader :lamp_image
+  alias :image :lamp_image 
+  undef :lamp_image
+  alias :rubbed? :rubbed 
   undef :rubbed
 
   def initialize(window)

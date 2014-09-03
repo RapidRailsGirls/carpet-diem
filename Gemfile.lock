@@ -1,8 +1,19 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    chingu (0.8.1)
+      crack
+      gosu (>= 0.7.25)
+      rest-client
+    crack (0.4.2)
+      safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
     gosu (0.7.50)
+    mime-types (2.3)
+    netrc (0.7.7)
+    rest-client (1.7.2)
+      mime-types (>= 1.16, < 3.0)
+      netrc (~> 0.7)
     rspec (3.0.0)
       rspec-core (~> 3.0.0)
       rspec-expectations (~> 3.0.0)
@@ -15,10 +26,15 @@ GEM
     rspec-mocks (3.0.4)
       rspec-support (~> 3.0.0)
     rspec-support (3.0.4)
+    safe_yaml (1.0.3)
+    texplay (0.4.3)
+      gosu (>= 0.7.25)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  chingu
   gosu (= 0.7.50)
   rspec
+  texplay
