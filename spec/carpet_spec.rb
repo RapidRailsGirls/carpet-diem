@@ -22,6 +22,28 @@ describe Carpet do
     end
   end
 
+  describe '#images_overlap?' do
+    it 'should return true if carpet overlaps with another object' do
+      carpet = Carpet.new(window, 'spec/fixtures/capital_i.png', 'spec/fixtures/capital_i.png')
+      carpet2 = Carpet.new(window, 'spec/fixtures/plus.png', 'spec/fixtures/plus.png')
+      carpet.x = 0
+      carpet.y = 0
+      carpet2.x = 2
+      carpet2.y = 0
+      expect(carpet.images_overlap?(carpet2)).to be(true)
+    end
+
+    it 'should return false if carpet does not overlap with another object' do
+      carpet = Carpet.new(window, 'spec/fixtures/capital_i.png', 'spec/fixtures/capital_i.png')
+      carpet2 = Carpet.new(window, 'spec/fixtures/plus.png', 'spec/fixtures/plus.png')
+      carpet.x = 0
+      carpet.y = 0
+      carpet2.x = 3
+      carpet2.y = 0
+      expect(carpet.images_overlap?(carpet2)).to be(false)
+    end
+  end
+
   describe '#collides_with?' do
 
     it 'should not collide if carpet intersects with other object' do
@@ -68,7 +90,7 @@ describe Carpet do
       pixel_array.each do |pixel|
         expect(pixel).to be_an Array
         expect(pixel.size).to eq(2)
-        pixel.each do |coordinate| 
+        pixel.each do |coordinate|
           expect(coordinate).to be_an Integer
         end
       end
@@ -93,8 +115,8 @@ describe Carpet do
     end
   end
 
-  describe '#overlapping_pixels' do 
-    it 'should return an array of arrays with 2 integers in it' do 
+  describe '#overlapping_pixels' do
+    it 'should return an array of arrays with 2 integers in it' do
       carpet = Carpet.new(window, 'spec/fixtures/capital_i.png', 'spec/fixtures/capital_i.png')
       carpet2 = Carpet.new(window, 'spec/fixtures/plus.png', 'spec/fixtures/plus.png')
       carpet.x = 0

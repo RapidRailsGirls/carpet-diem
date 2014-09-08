@@ -34,8 +34,19 @@ class Carpet
     @carpet_image = @carpet_image_right
   end
 
+  def images_overlap?(object)
+    object_bottom = object.y + object.height
+    carpet_bottom = y + height
+    object_right_side = object.x + width
+    carpet_right_side = x + width
+    object_bottom > y &&
+      object.y < carpet_bottom &&
+      object_right_side > x &&
+      object.x < carpet_right_side
+  end
+
   def collides_with?(object)
-    !opaque_overlapping_pixels(object).empty?
+    images_overlap?(object) #&& !opaque_overlapping_pixels(object).empty? # how make this more efficient?
   end
 
   def pixels(offset_x, offset_y, width, height)

@@ -5,9 +5,9 @@ class LampWithGenie
   def_delegators :@lamp_image, :height, :width
   attr_accessor :rubbed, :x, :y
   attr_reader :lamp_image
-  alias :image :lamp_image 
+  alias :image :lamp_image
   undef :lamp_image
-  alias :rubbed? :rubbed 
+  alias :rubbed? :rubbed
   undef :rubbed
 
   def initialize(window)
