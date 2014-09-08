@@ -42,15 +42,16 @@ class Window < Gosu::Window
       @carpet.move_right
     end
     scroll_background
-    if @counter % 600 == 1
+    if @counter % 60 == 1
       @lamps.push LampWithGenie.new(self)
     end
     scroll_lamps
     @lamps.any? do |lamp|
       if @carpet.collides_with?(lamp)
-        lamp.rubbed = true
+        lamp.rub!
       end
     end
+
   end
 
   def scroll_background

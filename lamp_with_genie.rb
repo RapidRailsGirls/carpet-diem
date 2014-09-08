@@ -3,12 +3,10 @@ require 'forwardable'
 class LampWithGenie
   extend Forwardable
   def_delegators :@lamp_image, :height, :width
-  attr_accessor :rubbed, :x, :y
+  attr_accessor :x, :y
   attr_reader :lamp_image
   alias :image :lamp_image
   undef :lamp_image
-  alias :rubbed? :rubbed
-  undef :rubbed
 
   def initialize(window)
     @scale = 0.0
@@ -27,9 +25,20 @@ class LampWithGenie
         @genie_image = Gosu::Image.new(window, 'media/evil_genie.png')
       end
     end
-    @rubbed = false
     @x = rand(@genie_image.width/2..(window.width - @genie_image.width))
     @y = -@lamp_image.height
+    @rubbed = false
+    @lamp_sound = Gosu::Sample.new(window, 'media/lamp.m4a')
+  end
+
+  def rub!
+    return @rubbed if @rubbed
+    @rubbed = true
+    @lamp_sound.play
+  end
+
+  def rubbed?
+    @rubbed
   end
 
   def good?
