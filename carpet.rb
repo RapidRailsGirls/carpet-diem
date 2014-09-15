@@ -9,6 +9,8 @@ class Carpet
   attr_accessor :x, :y
   attr_reader :carpet_image
   alias :image :carpet_image
+  alias :left :x
+  alias :top :y
   undef :carpet_image
 
   def initialize(window, carpet_image_file = 'media/carpet.png', carpet_image_flipped_file = 'media/carpet_flipped.png')
@@ -18,6 +20,14 @@ class Carpet
     @x = window.width/2.0 - @carpet_image.width/2.0
     @x += 1 if window.width.odd? && @carpet_image.width.odd?
     @y = window.height/(18/13.0) - @carpet_image.height/2.0
+  end
+
+  def bottom
+    y + height
+  end
+
+  def right
+    x + width
   end
 
   def draw
@@ -39,14 +49,10 @@ class Carpet
   end
 
   def images_overlap?(object)
-    object_bottom = object.y + object.height
-    carpet_bottom = y + height
-    object_right_side = object.x + width
-    carpet_right_side = x + width
-    object_bottom > y &&
-      object.y < carpet_bottom &&
-      object_right_side > x &&
-      object.x < carpet_right_side
+    object.bottom  > top    &&
+      object.top   < bottom &&
+      object.right > left   &&
+      object.left  < right
   end
 
   def opaque_overlapping_pixels(object)

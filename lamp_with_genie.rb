@@ -7,6 +7,8 @@ class LampWithGenie
   attr_reader :lamp_image
   alias :image :lamp_image
   undef :lamp_image
+  alias :left :x
+  alias :top :y
 
   def initialize(window)
     @scale = 0.0
@@ -29,6 +31,14 @@ class LampWithGenie
     @y = -@lamp_image.height
     @rubbed = false
     @lamp_sound = Gosu::Sample.new(window, 'media/lamp.m4a')
+  end
+
+  def bottom
+    y + height
+  end
+
+  def right
+    x + width
   end
 
   def rub!
