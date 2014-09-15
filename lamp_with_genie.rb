@@ -1,14 +1,14 @@
 require 'forwardable'
+require_relative 'position'
 
 class LampWithGenie
   extend Forwardable
+  include Position
   def_delegators :@lamp_image, :height, :width
   attr_accessor :x, :y
   attr_reader :lamp_image
   alias :image :lamp_image
   undef :lamp_image
-  alias :left :x
-  alias :top :y
 
   def initialize(window)
     @scale = 0.0
@@ -31,14 +31,6 @@ class LampWithGenie
     @y = -@lamp_image.height
     @rubbed = false
     @lamp_sound = Gosu::Sample.new(window, 'media/lamp.m4a')
-  end
-
-  def bottom
-    y + height
-  end
-
-  def right
-    x + width
   end
 
   def rub!
