@@ -1,11 +1,11 @@
 require 'forwardable'
 require 'texplay'
 require 'chingu'
-require_relative 'position'
+require_relative 'positionable'
 
 class Carpet
+  include Positionable
   extend Forwardable
-  include Position
   def_delegators :@carpet_image, :width, :height
   CARPET_SPEED = 5
   attr_accessor :x, :y
@@ -54,21 +54,29 @@ class Carpet
   end
 
   def overlapping_pixels(object)
-    if x < object.x
-      box_width = x + width - object.x
-      box_x = object.x
+    if left < object.left
+      box_left = object.left
+      if right < object.right
+        box_width = right - object.left
+      else
+        box_width = object.width
+      end
     else
-      box_width = object.x + object.width - x
-      box_x = x
+      box_width = object.right - left
+      box_left = left
     end
-    if y < object.y
-      box_height = y + height - object.y
-      box_y = object.y
+    if top < object.top
+      box_top = object.top
+      if bottom < object.bottom
+        box_height = bottom - object.top
+      else
+        box_height = object.height
+      end
     else
-      box_height = object.y + object.height - y
-      box_y = y
+      box_top = top
+      box_height = object.bottom - top
     end
-    pixels(box_x, box_y, box_width, box_height)
+    pixels(box_left, box_top, box_width, box_height)
   end
 
   def pixels(offset_x, offset_y, width, height)
@@ -78,6 +86,5 @@ class Carpet
       end
     end
   end
-
 
 end

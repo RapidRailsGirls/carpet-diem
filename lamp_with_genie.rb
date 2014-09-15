@@ -1,9 +1,9 @@
 require 'forwardable'
-require_relative 'position'
+require_relative 'positionable'
 
 class LampWithGenie
+  include Positionable
   extend Forwardable
-  include Position
   def_delegators :@lamp_image, :height, :width
   attr_accessor :x, :y
   attr_reader :lamp_image

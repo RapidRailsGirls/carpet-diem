@@ -1,4 +1,4 @@
-module Position
+module Positionable
   def top
   	y
   end
