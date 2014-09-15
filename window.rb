@@ -47,7 +47,7 @@ class Window < Gosu::Window
     end
     scroll_lamps
     @lamps.any? do |lamp|
-      if @carpet.collides_with?(lamp)
+      if !lamp.rubbed? && @carpet.collides_with?(lamp)
         lamp.rub!
       end
     end
