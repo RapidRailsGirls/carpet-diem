@@ -69,10 +69,16 @@ describe Carpet do
     it 'should collide if carpet overlaps with other object' do
      carpet = Carpet.new(window, 'spec/fixtures/capital_i.png', 'spec/fixtures/capital_i.png')
      carpet2 = Carpet.new(window, 'spec/fixtures/plus.png', 'spec/fixtures/plus.png')
+     carpet.x = 1
+     carpet.y = 1
+     carpet2.x = 1
+     carpet2.y = 1
+     expect(carpet.collides_with?(carpet2)).to be(true)
+
      carpet.x = 0
-     carpet.y = 0
+     carpet.y = 4
      carpet2.x = 0
-     carpet2.y = 0
+     carpet2.y = 2
      expect(carpet.collides_with?(carpet2)).to be(true)
    end
   end
