@@ -1,16 +1,13 @@
-require 'forwardable'
 require 'texplay'
 require 'chingu'
 require_relative 'positionable'
 
 class Carpet
   include Positionable
-  extend Forwardable
-  def_delegators :@carpet_image, :width, :height
   CARPET_SPEED = 5
-  attr_accessor :x, :y
   attr_reader :carpet_image
   alias :image :carpet_image
+  alias :primary_image :carpet_image
   undef :carpet_image
 
   def initialize(window, carpet_image_file = 'media/carpet.png', carpet_image_flipped_file = 'media/carpet_flipped.png')
