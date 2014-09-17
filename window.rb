@@ -21,11 +21,12 @@ class Window < Gosu::Window
     @yplus = -@backgrounds.last.height
     @counter = 0
     @genielamps = []
+    @score = 5
   end
 
   def draw
     @carpet.draw
-    @font.draw("Score:", 10, 10, 5, 1, 1, color = BLACK)
+    @font.draw("Score: #{@score}", 10, 10, 5, 1, 1, color = BLACK)
     @backgrounds.each_with_index do | bg, index |
       bg.y = (index / TILE_COLS) * bg.height + @yplus
       bg.draw((index % TILE_COLS) * bg.width, bg.y, 1)
@@ -52,6 +53,11 @@ class Window < Gosu::Window
       end
       if genielamp.lamp.rubbed? && !genielamp.genie.captured? && @carpet.collides_with?(genielamp.genie)
         genielamp.genie.capture!
+        if genielamp.genie.good?
+          @score += 1
+        else
+          @score -= 1
+        end
       end
     end
 
