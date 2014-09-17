@@ -7,12 +7,12 @@ class LampWithGenie
     include Positionable
     attr_reader :image
 
-    def initialize(window)
+    def initialize(window, x)
       @image = Gosu::Image.new(window, 'media/lamp.png')
       @sound = Gosu::Sample.new(window, 'media/lamp.m4a')
       @rubbed = false
       @y = -@image.height
-      @x = rand(0..window.width)
+      @x = x
     end
 
     def rub!
@@ -31,12 +31,26 @@ class LampWithGenie
     include Positionable
     attr_reader :image
 
-    def initialize(window)
+    def initialize(window, x)
       if good?
         @image = Gosu::Image.new(window, 'media/good_genie.png')
       else
         @image = Gosu::Image.new(window, 'media/evil_genie.png')
       end
+      @sound = Gosu::Sample.new(window, 'media/good_genie.m4a')
+      @y = -@image.height
+      @x = x # that's wrong
+      @captured = false
+    end
+
+    def capture!
+      return @captured if @captured
+      @captured = true
+      @sound.play
+    end
+
+    def captured?
+      @captured
     end
 
     def good?
@@ -53,8 +67,9 @@ class LampWithGenie
   end
 
   def initialize(window)
-    @genie = Genie.new(window)
-    @lamp = Lamp.new(window)
+    x = rand(0..window.width)
+    @genie = Genie.new(window, x)
+    @lamp = Lamp.new(window, x)
     @scale = 0.0
   end
 
@@ -68,6 +83,7 @@ class LampWithGenie
 
   def scroll(speed)
     @lamp.y += speed
+    @genie.y += speed
   end
 
   def draw

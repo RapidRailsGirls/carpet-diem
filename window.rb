@@ -50,6 +50,9 @@ class Window < Gosu::Window
       if !genielamp.lamp.rubbed? && @carpet.collides_with?(genielamp.lamp)
         genielamp.lamp.rub!
       end
+      if genielamp.lamp.rubbed? && !genielamp.genie.captured? && @carpet.collides_with?(genielamp.genie)
+        genielamp.genie.capture!
+      end
     end
 
   end
