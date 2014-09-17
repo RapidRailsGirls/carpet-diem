@@ -5,7 +5,7 @@ module Positionable
   alias :top :y
   alias :left :x
   extend Forwardable
-  def_delegators :primary_image, :height, :width
+  def_delegators :image, :height, :width
 
   def bottom
     y + height
@@ -15,7 +15,7 @@ module Positionable
     x + width
   end
 
-  def primary_image
+  def image
     raise NotImplementedError.new("Positionable objects must define a primary image")
   end
 

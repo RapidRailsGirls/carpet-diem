@@ -7,7 +7,6 @@ class Carpet
   CARPET_SPEED = 5
   attr_reader :carpet_image
   alias :image :carpet_image
-  alias :primary_image :carpet_image
   undef :carpet_image
 
   def initialize(window, carpet_image_file = 'media/carpet.png', carpet_image_flipped_file = 'media/carpet_flipped.png')

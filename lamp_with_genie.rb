@@ -1,55 +1,61 @@
 require_relative 'positionable'
 
 class LampWithGenie
-  include Positionable
-  attr_reader :lamp_image
-  alias :image :lamp_image
-  alias :primary_image :lamp_image
-  undef :lamp_image
+  attr_reader :lamp, :genie
+
+  class Lamp
+    include Positionable
+    attr_reader :image
+
+    def initialize(window)
+      @image = Gosu::Image.new(window, 'media/lamp.png')
+      @sound = Gosu::Sample.new(window, 'media/lamp.m4a')
+      @rubbed = false
+      @y = -@image.height
+      @x = rand(0..window.width)
+    end
+
+    def rub!
+      return @rubbed if @rubbed
+      @rubbed = true
+      @sound.play
+    end
+
+    def rubbed?
+      @rubbed
+    end
+  end
+
+
+  class Genie
+    include Positionable
+    attr_reader :image
+
+    def initialize(window)
+      if good?
+        @image = Gosu::Image.new(window, 'media/good_genie.png')
+      else
+        @image = Gosu::Image.new(window, 'media/evil_genie.png')
+      end
+    end
+
+    def good?
+      if defined? @good
+        return @good
+      else
+        @good = rand(2) == 0
+      end
+    end
+
+    def evil?
+      !good?
+    end
+  end
 
   def initialize(window)
+    @genie = Genie.new(window)
+    @lamp = Lamp.new(window)
     @scale = 0.0
-    if flipped?
-      @lamp_image = Gosu::Image.new(window, 'media/lamp_flipped.png')
-      if good?
-        @genie_image = Gosu::Image.new(window, 'media/good_genie_flipped.png')
-      else
-        @genie_image = Gosu::Image.new(window, 'media/evil_genie_flipped.png')
-      end
-    else
-      @lamp_image = Gosu::Image.new(window, 'media/lamp.png')
-      if good?
-        @genie_image = Gosu::Image.new(window, 'media/good_genie.png')
-      else
-        @genie_image = Gosu::Image.new(window, 'media/evil_genie.png')
-      end
-    end
-    @x = rand(@genie_image.width/2..(window.width - @genie_image.width))
-    @y = -@lamp_image.height
-    @rubbed = false
-    @lamp_sound = Gosu::Sample.new(window, 'media/lamp.m4a')
-  end
-
-  def rub!
-    return @rubbed if @rubbed
-    @rubbed = true
-    @lamp_sound.play
-  end
-
-  def rubbed?
-    @rubbed
-  end
-
-  def good?
-    if defined? @good
-      return @good
-    else
-      @good = rand(2) == 0
-    end
-  end
-
-  def evil?
-    !good?
   end
 
   def flipped?
@@ -61,21 +67,21 @@ class LampWithGenie
   end
 
   def scroll(speed)
-    @y += speed
+    @lamp.y += speed
   end
 
   def draw
-    @lamp_image.draw(@x, @y, 2)
-    if rubbed?
+    @lamp.image.draw(@lamp.x, @lamp.y, 2)
+    if @lamp.rubbed?
       @scale += 0.03 if @scale <= 1
-      if !flipped? && good?
-        @genie_image.draw(@x - 150 * @scale, @y - 200 * @scale, 3, @scale, @scale)
-      elsif !flipped? && evil?
-        @genie_image.draw(@x - 150 * @scale, @y - 200 * @scale, 3, @scale, @scale)
-      elsif flipped? && good?
-        @genie_image.draw(@x + 150, @y - 200 * @scale, 3, @scale, @scale)
-      elsif flipped? && evil?
-        @genie_image.draw(@x + 120, @y - 200 * @scale, 3, @scale, @scale)
+      if !flipped? && @genie.good?
+        @genie.image.draw(@lamp.x - 150 * @scale, @lamp.y - 200 * @scale, 3, @scale, @scale)
+      elsif !flipped? && @genie.evil?
+        @genie.image.draw(@lamp.x - 150 * @scale, @lamp.y - 200 * @scale, 3, @scale, @scale)
+      elsif flipped? && @genie.good?
+        @genie.image.draw(@lamp.x + 150, @lamp.y - 200 * @scale, 3, @scale, @scale)
+      elsif flipped? && @genie.evil?
+        @genie.image.draw(@lamp.x + 120, @lamp.y - 200 * @scale, 3, @scale, @scale)
       end
     end
   end

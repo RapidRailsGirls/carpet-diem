@@ -20,7 +20,7 @@ class Window < Gosu::Window
     @font = Gosu::Font.new(self, Gosu::default_font_name, 60)
     @yplus = -@backgrounds.last.height
     @counter = 0
-    @lamps = []
+    @genielamps = []
   end
 
   def draw
@@ -30,7 +30,7 @@ class Window < Gosu::Window
       bg.y = (index / TILE_COLS) * bg.height + @yplus
       bg.draw((index % TILE_COLS) * bg.width, bg.y, 1)
     end
-    @lamps.each {|lamp| lamp.draw}
+    @genielamps.each {|genielamp| genielamp.draw}
   end
 
   def update
@@ -43,12 +43,12 @@ class Window < Gosu::Window
     end
     scroll_background
     if @counter % 60 == 1
-      @lamps.push LampWithGenie.new(self)
+      @genielamps.push LampWithGenie.new(self)
     end
     scroll_lamps
-    @lamps.any? do |lamp|
-      if !lamp.rubbed? && @carpet.collides_with?(lamp)
-        lamp.rub!
+    @genielamps.any? do |genielamp|
+      if !genielamp.lamp.rubbed? && @carpet.collides_with?(genielamp.lamp)
+        genielamp.lamp.rub!
       end
     end
 
@@ -64,8 +64,8 @@ class Window < Gosu::Window
   end
 
   def scroll_lamps
-    @lamps.each do |lamp|
-      lamp.scroll(VELOCITY)
+    @genielamps.each do |genielamp|
+      genielamp.scroll(VELOCITY)
     end
   end
 end
