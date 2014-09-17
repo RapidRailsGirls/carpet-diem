@@ -37,7 +37,9 @@ class LampWithGenie
       else
         @image = Gosu::Image.new(window, 'media/evil_genie.png')
       end
-      @sound = Gosu::Sample.new(window, 'media/good_genie.m4a')
+      @good_sound = Gosu::Sample.new(window, 'media/good_genie.m4a')
+      @evil_sound = Gosu::Sample.new(window, 'media/evil_genie.m4a')
+
       @y = -@image.height
       @x = x # that's wrong
       @captured = false
@@ -46,7 +48,11 @@ class LampWithGenie
     def capture!
       return @captured if @captured
       @captured = true
-      @sound.play
+      if good?
+        @good_sound.play
+      else
+        @evil_sound.play
+      end
     end
 
     def captured?
