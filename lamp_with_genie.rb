@@ -7,12 +7,22 @@ class LampWithGenie
     include Positionable
     attr_reader :image
 
-    def initialize(window, x)
-      @image = Gosu::Image.new(window, 'media/lamp.png')
+    def initialize(window, x, flipped)
+      if flipped
+        @image = Gosu::Image.new(window, 'media/lamp_flipped.png')
+      else
+        @image = Gosu::Image.new(window, 'media/lamp.png')
+      end
+
       @sound = Gosu::Sample.new(window, 'media/lamp.m4a')
       @rubbed = false
       @y = -@image.height
       @x = x
+#      @flipped = flipped
+    end
+
+    def draw
+      @image.draw(@x, @y, 2)
     end
 
     def rub!
@@ -31,28 +41,40 @@ class LampWithGenie
     include Positionable
     attr_reader :image
 
-    def initialize(window, x)
-      if good?
-        @image = Gosu::Image.new(window, 'media/good_genie.png')
+    def initialize(window, x, flipped)
+      prefix = if good?
+        'good'
       else
-        @image = Gosu::Image.new(window, 'media/evil_genie.png')
+        'evil'
       end
-      @good_sound = Gosu::Sample.new(window, 'media/good_genie.m4a')
-      @evil_sound = Gosu::Sample.new(window, 'media/evil_genie.m4a')
-
+      suffix  = '_flipped' if flipped
+      @image = Gosu::Image.new(window, "media/#{prefix}_genie#{suffix}.png")
+      @sound = Gosu::Sample.new(window, "media/#{prefix}_genie.m4a")
       @y = -@image.height
-      @x = x # that's wrong
+      @x = if flipped
+        x + 120
+      else
+        x - 150
+      end
+      @flipped = flipped
       @captured = false
+      @scale = 0.0
+
+    end
+
+    def draw_near(lamp)
+      @scale += 0.03 if @scale <= 1
+      if @flipped
+        @image.draw(lamp.x + 120, lamp.y - 180 * @scale, 3, @scale, @scale)
+      else
+        @image.draw(lamp.x - 150 * @scale, lamp.y - 180 * @scale, 3, @scale, @scale)
+      end
     end
 
     def capture!
       return @captured if @captured
       @captured = true
-      if good?
-        @good_sound.play
-      else
-        @evil_sound.play
-      end
+      @sound.play
     end
 
     def captured?
@@ -72,19 +94,14 @@ class LampWithGenie
     end
   end
 
+ # END OF GENIE
+#####################################################################
+
   def initialize(window)
     x = rand(0..window.width)
-    @genie = Genie.new(window, x)
-    @lamp = Lamp.new(window, x)
-    @scale = 0.0
-  end
-
-  def flipped?
-    if defined? @flipped
-      return @flipped
-    else
-      @flipped = rand(2) == 0
-    end
+    flipped = rand(2) == 0
+    @genie = Genie.new(window, x, flipped)
+    @lamp = Lamp.new(window, x, flipped)
   end
 
   def scroll(speed)
@@ -93,18 +110,9 @@ class LampWithGenie
   end
 
   def draw
-    @lamp.image.draw(@lamp.x, @lamp.y, 2)
+    @lamp.draw
     if @lamp.rubbed?
-      @scale += 0.03 if @scale <= 1
-      if !flipped? && @genie.good?
-        @genie.image.draw(@lamp.x - 150 * @scale, @lamp.y - 200 * @scale, 3, @scale, @scale)
-      elsif !flipped? && @genie.evil?
-        @genie.image.draw(@lamp.x - 150 * @scale, @lamp.y - 200 * @scale, 3, @scale, @scale)
-      elsif flipped? && @genie.good?
-        @genie.image.draw(@lamp.x + 150, @lamp.y - 200 * @scale, 3, @scale, @scale)
-      elsif flipped? && @genie.evil?
-        @genie.image.draw(@lamp.x + 120, @lamp.y - 200 * @scale, 3, @scale, @scale)
-      end
+      @genie.draw_near(@lamp)
     end
   end
 end
