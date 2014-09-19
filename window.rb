@@ -43,7 +43,7 @@ class Window < Gosu::Window
       @carpet.move_right
     end
     scroll_background
-    if @counter % 60 == 1
+    if @counter % 200 == 1
       @genielamps.push LampWithGenie.new(self)
     end
     scroll_lamps

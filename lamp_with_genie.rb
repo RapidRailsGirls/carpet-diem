@@ -18,7 +18,6 @@ class LampWithGenie
       @rubbed = false
       @y = -@image.height
       @x = x
-#      @flipped = flipped
     end
 
     def draw
@@ -40,8 +39,8 @@ class LampWithGenie
   class Genie
     include Positionable
     attr_reader :image
-
-    def initialize(window, x, flipped)
+    PADDING = 15
+    def initialize(window, x, flipped, lamp)
       prefix = if good?
         'good'
       else
@@ -50,24 +49,26 @@ class LampWithGenie
       suffix  = '_flipped' if flipped
       @image = Gosu::Image.new(window, "media/#{prefix}_genie#{suffix}.png")
       @sound = Gosu::Sample.new(window, "media/#{prefix}_genie.m4a")
+      @lamp = lamp
       @y = -@image.height
-      @x = if flipped
-        x + 120
-      else
-        x - 150
-      end
+      @x = flipped ? x + lamp.width : x
       @flipped = flipped
       @captured = false
       @scale = 0.0
-
     end
 
-    def draw_near(lamp)
+    def draw
+      @image.draw(@x, @y, 3, @scale, @scale)
+    end
+
+    def update
       @scale += 0.03 if @scale <= 1
       if @flipped
-        @image.draw(lamp.x + 120, lamp.y - 180 * @scale, 3, @scale, @scale)
+        @x = @lamp.x + width - PADDING
+        @y = @lamp.y - height * @scale
       else
-        @image.draw(lamp.x - 150 * @scale, lamp.y - 180 * @scale, 3, @scale, @scale)
+        @x = (@lamp.x - (width + PADDING) * @scale)
+        @y = (@lamp.y - height * @scale)
       end
     end
 
@@ -100,8 +101,8 @@ class LampWithGenie
   def initialize(window)
     x = rand(0..window.width)
     flipped = rand(2) == 0
-    @genie = Genie.new(window, x, flipped)
     @lamp = Lamp.new(window, x, flipped)
+    @genie = Genie.new(window, x, flipped, @lamp)
   end
 
   def scroll(speed)
@@ -111,8 +112,6 @@ class LampWithGenie
 
   def draw
     @lamp.draw
-    if @lamp.rubbed?
-      @genie.draw_near(@lamp)
-    end
+    @genie.update && @genie.draw if @lamp.rubbed?
   end
 end
