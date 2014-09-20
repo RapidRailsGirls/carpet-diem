@@ -86,7 +86,7 @@ class LampWithGenie
       if defined? @good
         return @good
       else
-        @good = rand(2) == 0
+        @good = rand(2) == 0 # for testing / only evil genies: rand(1) == 1
       end
     end
 
