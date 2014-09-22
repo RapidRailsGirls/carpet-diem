@@ -65,11 +65,7 @@ class Window < Gosu::Window
           @score -= 1
         end
       end
-      @genielamps.each do |genielamp|
-        if genielamp.off_screen?(self)
-          @genielamps.delete(genielamp)
-        end
-      end
+      @genielamps.reject!(&:off_screen?)
     end
   end
 

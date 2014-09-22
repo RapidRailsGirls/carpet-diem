@@ -120,11 +120,11 @@ class LampWithGenie
     @genie.update && @genie.draw if @lamp.rubbed?
   end
 
-  def off_screen?(window)
-    if @genie.y == nil
-      @lamp.y >= window.height
+  def off_screen?
+    if @lamp.rubbed?
+      @genie.y >= @window.height
     else
-      @genie.y >= window.height
+      @lamp.y >= @window.height
     end
   end
 end
