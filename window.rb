@@ -21,8 +21,7 @@ class Window < Gosu::Window
     @yplus = -@backgrounds.last.height
     @counter = 0
     @genielamps = []
-    @endboss = nil
-    @score = 1
+    @score = 10
   end
 
   def draw
@@ -33,7 +32,7 @@ class Window < Gosu::Window
       bg.draw((index % TILE_COLS) * bg.width, bg.y, 1)
     end
     @genielamps.each {|genielamp| genielamp.draw}
-    @endboss.draw if !@endboss.nil?
+    @endboss.draw if @endboss
   end
 
   def update
