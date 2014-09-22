@@ -13,7 +13,6 @@ class LampWithGenie
       else
         @image = Gosu::Image.new(window, 'media/lamp.png')
       end
-
       @sound = Gosu::Sample.new(window, 'media/lamp.m4a')
       @rubbed = false
       @y = -@image.height
