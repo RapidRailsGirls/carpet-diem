@@ -21,7 +21,7 @@ class Window < Gosu::Window
     @yplus = -@backgrounds.last.height
     @counter = 0
     @genielamps = []
-    @endboss = []
+    @endboss = nil
     @score = 1
   end
 
@@ -33,7 +33,7 @@ class Window < Gosu::Window
       bg.draw((index % TILE_COLS) * bg.width, bg.y, 1)
     end
     @genielamps.each {|genielamp| genielamp.draw}
-    @endboss.each {|endboss| endboss.draw}
+    @endboss.draw if !@endboss.nil?
   end
 
   def update
@@ -50,7 +50,7 @@ class Window < Gosu::Window
         @genielamps.push LampWithGenie.new(self)
       end
     else
-      @endboss.push Endboss.new(self) if @endboss.empty? && @genielamps.empty?
+      @endboss = Endboss.new(self) if @endboss.nil? && @genielamps.empty?
     end
     scroll_lamps
     @genielamps.any? do |genielamp|
@@ -71,7 +71,6 @@ class Window < Gosu::Window
         end
       end
     end
-
   end
 
   def scroll_background
