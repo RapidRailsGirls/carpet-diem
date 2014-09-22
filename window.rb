@@ -52,8 +52,8 @@ class Window < Gosu::Window
       @endboss = Endboss.new(self) if @endboss.nil? && @genielamps.empty?
     end
     scroll_lamps
-    @genielamps.any? do |genielamp|
-      if !genielamp.lamp.rubbed? && @carpet.collides_with?(genielamp.lamp)
+    @genielamps.each do |genielamp|
+      if @score != 0 && !genielamp.lamp.rubbed? && @carpet.collides_with?(genielamp.lamp)
         genielamp.lamp.rub!
       end
       if genielamp.lamp.rubbed? && !genielamp.genie.captured? && @carpet.collides_with?(genielamp.genie)
