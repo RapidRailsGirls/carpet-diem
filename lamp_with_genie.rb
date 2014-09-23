@@ -121,9 +121,9 @@ class LampWithGenie
 
   def off_screen?
     if @lamp.rubbed?
-      @genie.y >= @window.height
+      @genie.y > @window.height
     else
-      @lamp.y >= @window.height
+      @lamp.y > @window.height
     end
   end
 end
