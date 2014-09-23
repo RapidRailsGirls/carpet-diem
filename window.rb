@@ -19,13 +19,17 @@ class Window < Gosu::Window
     end
     @font = Gosu::Font.new(self, Gosu::default_font_name, 60)
     @yplus = -@backgrounds.last.height
-    @counter = 0
     @genielamps = []
-    @score = 10
+    @counter = 0
+    @score = 4
   end
 
   def draw
-    @carpet.draw
+    if @score > 3
+      @carpet.draw
+    elsif @score > 0
+      @carpet.blinking(@counter)
+    end
     @font.draw("Score: #{@score}", 10, 10, 5, 1, 1, color = BLACK)
     @backgrounds.each_with_index do | bg, index |
       bg.y = (index / TILE_COLS) * bg.height + @yplus

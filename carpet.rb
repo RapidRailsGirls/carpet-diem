@@ -22,6 +22,11 @@ class Carpet
     @carpet_image.draw(@x, @y, 4)
   end
 
+  def blinking(counter)
+    @z = counter % 20 == 1 ? 1 : 4
+    @carpet_image.draw(@x, @y, @z)
+  end
+
   def move_left
     @x = [@x - CARPET_SPEED, 0 - @carpet_image.height / 4].max
     @carpet_image = @carpet_image_left

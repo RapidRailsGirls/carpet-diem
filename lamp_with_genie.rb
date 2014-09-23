@@ -39,12 +39,8 @@ class LampWithGenie
     attr_reader :image
     PADDING = 15
     def initialize(window, flipped, lamp)
-      prefix = if good?
-        'good'
-      else
-        'evil'
-      end
-      suffix  = '_flipped' if flipped
+      prefix = good? ? 'good' : 'evil'
+      suffix = '_flipped' if flipped
       @image = Gosu::Image.new(window, "media/#{prefix}_genie#{suffix}.png")
       @sound = Gosu::Sample.new(window, "media/#{prefix}_genie.m4a")
       @lamp = lamp
