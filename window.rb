@@ -83,7 +83,8 @@ class Window < Gosu::Window
 
   def scroll_lamps
     @genielamps.each do |genielamp|
-      genielamp.scroll(VELOCITY)
+      if @score == 0 ? genielamp.scroll(VELOCITY * 6) : genielamp.scroll(VELOCITY)
+      end
     end
   end
 end
