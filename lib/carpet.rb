@@ -9,7 +9,7 @@ class Carpet
   alias :image :carpet_image
   undef :carpet_image
 
-  def initialize(window, carpet_image_file = 'media/carpet.png', carpet_image_flipped_file = 'media/carpet_flipped.png')
+  def initialize(window, carpet_image_file = 'lib/media/carpet.png', carpet_image_flipped_file = 'lib/media/carpet_flipped.png')
     @carpet_image = @carpet_image_right = Gosu::Image.new(window, carpet_image_file)
     @carpet_image_left = Gosu::Image.new(window, carpet_image_flipped_file)
     @window = window
@@ -18,13 +18,13 @@ class Carpet
     @y = window.height/(18/13.0) - @carpet_image.height/2.0
   end
 
-  def draw
-    @carpet_image.draw(@x, @y, 4)
-  end
-
-  def blinking(counter)
-    @z = counter % 20 == 1 ? 1 : 4
-    @carpet_image.draw(@x, @y, @z)
+  def draw(counter, score)
+    if score > 3
+      @carpet_image.draw(@x, @y, 4)
+    elsif score > 0
+      @z = counter % 20 == 1 ? 1 : 4
+      @carpet_image.draw(@x, @y, @z)
+    end
   end
 
   def move_left

@@ -15,21 +15,17 @@ class Window < Gosu::Window
     super(1200, 800, false)
     @carpet = Carpet.new(self)
     @backgrounds = NUM_TILES.times.collect do
-      Gosu::Image.new(self, 'media/background.jpg', true).extend(YAccessible)
+      Gosu::Image.new(self, 'lib/media/background.jpg', true).extend(YAccessible)
     end
     @font = Gosu::Font.new(self, Gosu::default_font_name, 60)
     @yplus = -@backgrounds.last.height
     @genielamps = []
     @counter = 0
-    @score = 4
+    @score = 5
   end
 
   def draw
-    if @score > 3
-      @carpet.draw
-    elsif @score > 0
-      @carpet.blinking(@counter)
-    end
+    @carpet.draw(@counter, @score)
     @font.draw("Score: #{@score}", 10, 10, 5, 1, 1, color = BLACK)
     @backgrounds.each_with_index do | bg, index |
       bg.y = (index / TILE_COLS) * bg.height + @yplus
@@ -83,8 +79,7 @@ class Window < Gosu::Window
 
   def scroll_lamps
     @genielamps.each do |genielamp|
-      if @score == 0 ? genielamp.scroll(VELOCITY * 6) : genielamp.scroll(VELOCITY)
-      end
+      @score == 0 ? genielamp.scroll(VELOCITY * 6) : genielamp.scroll(VELOCITY)
     end
   end
 end

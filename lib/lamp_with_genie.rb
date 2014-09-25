@@ -9,11 +9,11 @@ class LampWithGenie
 
     def initialize(window, flipped)
       if flipped
-        @image = Gosu::Image.new(window, 'media/lamp_flipped.png')
+        @image = Gosu::Image.new(window, 'lib/media/lamp_flipped.png')
       else
-        @image = Gosu::Image.new(window, 'media/lamp.png')
+        @image = Gosu::Image.new(window, 'lib/media/lamp.png')
       end
-      @sound = Gosu::Sample.new(window, 'media/lamp.m4a')
+      @sound = Gosu::Sample.new(window, 'lib/media/lamp.m4a')
       @rubbed = false
       @y = -@image.height
     end
@@ -41,8 +41,8 @@ class LampWithGenie
     def initialize(window, flipped, lamp)
       prefix = good? ? 'good' : 'evil'
       suffix = '_flipped' if flipped
-      @image = Gosu::Image.new(window, "media/#{prefix}_genie#{suffix}.png")
-      @sound = Gosu::Sample.new(window, "media/#{prefix}_genie.m4a")
+      @image = Gosu::Image.new(window, "lib/media/#{prefix}_genie#{suffix}.png")
+      @sound = Gosu::Sample.new(window, "lib/media/#{prefix}_genie.m4a")
       @lamp = lamp
       @y = -@image.height
       @flipped = flipped
@@ -79,7 +79,7 @@ class LampWithGenie
       if defined? @good
         return @good
       else
-        @good = rand(2) == 0 # for testing / only evil genies: rand(1) == 1
+        @good = rand(2) == 0
       end
     end
 
@@ -87,9 +87,6 @@ class LampWithGenie
       !good?
     end
   end
-
- # END OF GENIE
-#####################################################################
 
   def initialize(window)
     flipped = rand(2) == 0

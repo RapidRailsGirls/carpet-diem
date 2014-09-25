@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+
+require 'gosu'
+require_relative '../lib/window'
+require_relative '../lib/lamp_with_genie'
+require_relative '../lib/carpet'
+require_relative '../lib/endboss'
+
+window = Window.new
+window.show

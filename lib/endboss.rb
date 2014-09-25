@@ -1,7 +1,7 @@
 class Endboss
 
   def initialize(window)
-    @image = Gosu::Image.new(window, 'media/endboss.png')
+    @image = Gosu::Image.new(window, 'lib/media/endboss.png')
     @x = window.width/2 - @image.width/2
     @y = window.height
     @scale = 0.0
