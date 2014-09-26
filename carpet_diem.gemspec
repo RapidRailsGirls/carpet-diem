@@ -3,7 +3,7 @@ Gem::Specification.new do |s|
   s.version     = '0.0.1'
   s.licenses    = ['MIT']
   s.summary     = "A Gosu game about a flying carpet"
-  s.description = "Be a flying carpet that hovers throught the clouds. On your way up you will encounter magic lamps. Rub them to see if a good or an evil genie is hidden inside, the one adding points to your score, the other being your worst enenmy!"
+  s.description = "Be a flying carpet that hovers through the clouds. On your way up you will encounter magic lamps. Rub them to see if a good or an evil genie is hidden inside, the one adding points to your score, the other being your worst enemy!"
   s.authors     = ['Brigitte Markmann', 'Kathi Zwick']
   s.email       = ['bri.ma@gmx.de', 'ka.zwick@gmail.com']
   s.files = %w(carpet_diem.gemspec)
