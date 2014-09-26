@@ -3,7 +3,7 @@ carpet-diem
 
 
 # Installation
-... will follow ...
+`$ gem install carpet_diem`
 
 
 # Requirements
@@ -11,7 +11,7 @@ carpet-diem
 
 
 # How to play
-To start the game ...do something...
+`$ carpet_diem`
 
 To move the carpet (that's you, the player) to the left, use the :arrow_left: key, to move carpet to the right, use the :arrow_right: key.
 Bump into a lamp to see if a good or an evil genie pops out. Avoid the evil one! It steals points from your score! Catch the good ones to add points to your score.
@@ -24,7 +24,7 @@ We'd like to thank Madgalena Frankiewicz, who had the initial spark for starting
 to Klaus Fleerkötter, Steffi Tinder and Erik Michaels-Ober, who spent a lot of time helping us, giving hints, explaining patiently and thus adding to the fun we had building this game! :+1: :rose: 
 
 # Copyright
-Copyright (c) 2014 Brigitte Markmann, Kathi Zwick, Erik Michaels-Ober. See [LICENSE]() for details.
+Copyright (c) 2014 Brigitte Markmann, Kathi Zwick, Erik Michaels-Ober. See [LICENSE](https://github.com/RapidRailsGirls/carpet-diem/blob/master/LICENSE.md) for details.
 
 
 
