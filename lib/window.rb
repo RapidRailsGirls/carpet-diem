@@ -50,6 +50,7 @@ class Window < Gosu::Window
       end
     else
       @endboss = Endboss.new(self) if @endboss.nil? && @genielamps.empty?
+      @endboss.laugh! if @endboss
     end
     scroll_lamps
     @genielamps.each do |genielamp|
