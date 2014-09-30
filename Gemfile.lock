@@ -1,10 +1,10 @@
 PATH
   remote: .
   specs:
-    carpet_diem (0.0.1)
-      chingu
+    carpet_diem (0.0.4)
+      chingu (~> 0.8)
       gosu (= 0.7.50)
-      texplay
+      texplay (~> 0.4)
 
 GEM
   remote: https://rubygems.org/
@@ -13,18 +13,12 @@ GEM
       crack
       gosu (>= 0.7.25)
       rest-client
-    coderay (1.1.0)
     crack (0.4.2)
       safe_yaml (~> 1.0.0)
     diff-lcs (1.2.5)
     gosu (0.7.50)
-    method_source (0.8.2)
     mime-types (2.3)
     netrc (0.7.7)
-    pry (0.10.1)
-      coderay (~> 1.1.0)
-      method_source (~> 0.8.1)
-      slop (~> 3.4)
     rest-client (1.7.2)
       mime-types (>= 1.16, < 3.0)
       netrc (~> 0.7)
@@ -40,8 +34,7 @@ GEM
     rspec-mocks (3.1.0)
       rspec-support (~> 3.1.0)
     rspec-support (3.1.0)
-    safe_yaml (1.0.3)
-    slop (3.6.0)
+    safe_yaml (1.0.4)
     texplay (0.4.3)
       gosu (>= 0.7.25)
 
@@ -50,5 +43,4 @@ PLATFORMS
 
 DEPENDENCIES
   carpet_diem!
-  pry
   rspec
