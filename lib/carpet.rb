@@ -57,25 +57,25 @@ class Carpet
   def overlapping_pixels(object)
     if left < object.left
       box_left = object.left
-      if right < object.right
+      if right < object.right * object.scale
         box_width = right - object.left
       else
-        box_width = object.width
+        box_width = object.width * object.scale
       end
     else
-      box_width = object.right - left
+      box_width = object.right * object.scale - left
       box_left = left
     end
     if top < object.top
       box_top = object.top
-      if bottom < object.bottom
+      if bottom < object.bottom * object.scale
         box_height = bottom - object.top
       else
-        box_height = object.height
+        box_height = object.height * object.scale
       end
     else
       box_top = top
-      box_height = object.bottom - top
+      box_height = object.bottom * object.scale - top
     end
     pixels(box_left, box_top, box_width, box_height)
   end

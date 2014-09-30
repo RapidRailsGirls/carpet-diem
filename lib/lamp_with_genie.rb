@@ -5,7 +5,7 @@ class LampWithGenie
 
   class Lamp
     include Positionable
-    attr_reader :image
+    attr_reader :image, :scale
 
     def initialize(window, flipped)
       if flipped
@@ -16,6 +16,7 @@ class LampWithGenie
       @sound = Gosu::Sample.new(window, 'lib/media/lamp.m4a')
       @rubbed = false
       @y = -@image.height
+      @scale = 1
     end
 
     def draw
@@ -36,7 +37,7 @@ class LampWithGenie
 
   class Genie
     include Positionable
-    attr_reader :image
+    attr_reader :image, :scale
     PADDING = 15
     def initialize(window, flipped, lamp)
       prefix = good? ? 'good' : 'evil'
