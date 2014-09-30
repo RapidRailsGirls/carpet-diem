@@ -2,11 +2,11 @@ class Endboss
 attr_reader :endboss
 
   def initialize(window)
-    @image = Gosu::Image.new(window, 'lib/media/endboss.png')
+    @image = Gosu::Image.new(window, path_to_media('endboss.png'))
     @x = window.width/2 - @image.width/2
     @y = window.height
     @scale = 0.0
-    @sound = Gosu::Sample.new(window, 'lib/media/evil_laughter.m4a')
+    @sound = Gosu::Sample.new(window, path_to_media('evil_laughter.m4a'))
     @laughs = false
   end
 

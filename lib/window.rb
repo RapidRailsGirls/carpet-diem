@@ -1,3 +1,7 @@
+def path_to_media(filename)
+  File.expand_path("media/" + filename, File.dirname(__FILE__))
+end
+
 class Window < Gosu::Window
   NUM_TILES = 6
   TILE_COLS = 2
@@ -15,7 +19,7 @@ class Window < Gosu::Window
     super(1200, 800, false)
     @carpet = Carpet.new(self)
     @backgrounds = NUM_TILES.times.collect do
-      Gosu::Image.new(self, 'lib/media/background.jpg', true).extend(YAccessible)
+      Gosu::Image.new(self, path_to_media("background.jpg"), true).extend(YAccessible)
     end
     @font = Gosu::Font.new(self, Gosu::default_font_name, 60)
     @yplus = -@backgrounds.last.height
