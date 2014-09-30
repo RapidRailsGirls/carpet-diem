@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'carpet_diem'
-  s.version     = '0.0.4'
+  s.version     = '0.0.4.pre'
   s.licenses    = ['MIT']
   s.summary     = "A Gosu game about a flying carpet"
   s.description = "Be a flying carpet that hovers through the clouds. On your way up you will encounter magic lamps. Rub them to see if a good or an evil genie is hidden inside, the one adding points to your score, the other being your worst enemy!"
