@@ -8,10 +8,14 @@ Carpet Diem
 Carpet Diem is a game!
 Be a flying carpet that hovers through the clouds. On your way up you will encounter magic lamps. Rub them to see if a good or an evil genie is hidden inside, the one adding points to your score, the other being your worst enemy!
 
+![Carpet Diem](/screenshot.png)
+
 
 # Installation
 This game is built with Ruby. If you have Ruby installed on your system you can run:
+
 `$ gem install carpet_diem`
+
 This will download and install the game and its dependencies.
 
 # How to play
