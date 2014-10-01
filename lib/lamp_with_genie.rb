@@ -13,7 +13,7 @@ class LampWithGenie
       else
         @image = Gosu::Image.new(window, path_to_media('lamp.png'))
       end
-      @sound = Gosu::Sample.new(window, path_to_media('lamp.m4a'))
+      @sound = Gosu::Sample.new(window, path_to_media('lamp.wav'))
       @rubbed = false
       @y = -@image.height
       @scale = 1
@@ -43,7 +43,7 @@ class LampWithGenie
       prefix = good? ? 'good' : 'evil'
       suffix = '_flipped' if flipped
       @image = Gosu::Image.new(window, path_to_media("#{prefix}_genie#{suffix}.png"))
-      @sound = Gosu::Sample.new(window, path_to_media("#{prefix}_genie.m4a"))
+      @sound = Gosu::Sample.new(window, path_to_media("#{prefix}_genie.wav"))
       @lamp = lamp
       @y = -@image.height
       @flipped = flipped

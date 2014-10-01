@@ -6,7 +6,7 @@ attr_reader :endboss
     @x = window.width/2 - @image.width/2
     @y = window.height
     @scale = 0.0
-    @sound = Gosu::Sample.new(window, path_to_media('evil_laughter.m4a'))
+    @sound = Gosu::Sample.new(window, path_to_media('evil_laughter.wav'))
     @laughs = false
   end
 
