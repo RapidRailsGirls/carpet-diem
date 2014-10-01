@@ -1,5 +1,3 @@
-require 'texplay'
-require 'chingu'
 require_relative 'positionable'
 
 class Carpet
@@ -38,54 +36,9 @@ class Carpet
   end
 
   def collides_with?(object)
-    images_overlap?(object) && !opaque_overlapping_pixels(object).empty?
+    object.bottom  * object.scale > top    &&
+      object.top                  < bottom &&
+      object.right * object.scale > left   &&
+      object.left                 < right
   end
-
-  def images_overlap?(object)
-    object.bottom  > top    &&
-      object.top   < bottom &&
-      object.right > left   &&
-      object.left  < right
-  end
-
-  def opaque_overlapping_pixels(object)
-    overlapping_pixels(object).select do |x,y|
-      !@carpet_image.transparent_pixel?(x,y) && !object.image.transparent_pixel?(x,y)
-    end
-  end
-
-  def overlapping_pixels(object)
-    if left < object.left
-      box_left = object.left
-      if right < object.right * object.scale
-        box_width = right - object.left
-      else
-        box_width = object.width * object.scale
-      end
-    else
-      box_width = object.right * object.scale - left
-      box_left = left
-    end
-    if top < object.top
-      box_top = object.top
-      if bottom < object.bottom * object.scale
-        box_height = bottom - object.top
-      else
-        box_height = object.height * object.scale
-      end
-    else
-      box_top = top
-      box_height = object.bottom * object.scale - top
-    end
-    pixels(box_left, box_top, box_width, box_height)
-  end
-
-  def pixels(offset_x, offset_y, width, height)
-    height.round.times.flat_map do |y|
-      width.round.times.map do |x|
-        [(x + offset_x).to_i, (y + offset_y).to_i]
-      end
-    end
-  end
-
 end
