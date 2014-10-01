@@ -27,7 +27,7 @@ The aim of the game: don't let the evil genies win!
 
 
 # Acknowledgements
-This game came about during our Rails Girls Summer of Code. We were inspired by [Rin Räuber's talk about Gosu](https://github.com/rin/eurucamp) at eurucamp 2014.
+This game came about during our [Rails Girls Summer of Code](http://rapidrailsgirls.weebly.com). We were inspired by [Rin Räuber's talk about Gosu](https://github.com/rin/eurucamp) at eurucamp 2014.
 We'd like to thank Madgalena Frankiewicz, who had the initial spark for starting this game ("I like flying carpets. Lets build a game where you play a flying carpet"). A big thank you goes also out
 to Klaus Fleerkötter, Steffi Tinder and Erik Michaels-Ober, who spent a lot of time helping us, giving hints, explaining patiently and thus adding to the fun we had building this game! :+1: :rose: 
 
