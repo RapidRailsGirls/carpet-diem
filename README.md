@@ -10,6 +10,11 @@ Be a flying carpet that hovers through the clouds. On your way up you will encou
 
 
 # Installation
+First, install the dependencies. You will need:
+  * SDL, including sdl_ttf
+  * GLUT
+  * FreeImage
+
 This game is built with Ruby. If you have Ruby installed on your system you can run:
 `$ gem install carpet_diem`
 This will download and install the game and its dependencies.
