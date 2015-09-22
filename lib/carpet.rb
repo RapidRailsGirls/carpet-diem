@@ -8,8 +8,8 @@ class Carpet
   undef :carpet_image
 
   def initialize(window, carpet_image_file = 'carpet.png', carpet_image_flipped_file = 'carpet_flipped.png')
-    @carpet_image = @carpet_image_right = Gosu::Image.new(window, path_to_media(carpet_image_file))
-    @carpet_image_left = Gosu::Image.new(window, path_to_media(carpet_image_flipped_file))
+    @carpet_image = @carpet_image_right = Gosu::Image.new('lib/media/' + carpet_image_file)
+    @carpet_image_left = Gosu::Image.new('lib/media/' + carpet_image_flipped_file)
     @window = window
     @x = window.width/2.0 - @carpet_image.width/2.0
     @x += 1 if window.width.odd? && @carpet_image.width.odd?

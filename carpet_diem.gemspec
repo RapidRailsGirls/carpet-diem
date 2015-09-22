@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.files      += Dir.glob('lib/**/*') + Dir.glob('bin/**/*.rb')
   s.homepage    = 'https://github.com/RapidRailsGirls/carpet-diem'
   s.executables = %w[carpet_diem]
-  s.add_runtime_dependency 'gosu', '0.7.50'
+  s.add_runtime_dependency 'gosu', '~> 0.10.2'
 
   s.add_development_dependency 'rspec'
 
